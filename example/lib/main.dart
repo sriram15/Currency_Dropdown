@@ -43,6 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Column(
         children: <Widget>[
           Container(
+              padding: const EdgeInsets.all(10.0),
               child: CurrencyDropDown(
                   currencyValue: currencyValue, onChanged: _onCurrencyChanged)),
         ],

@@ -24,7 +24,6 @@ class CurrencyDropDown extends StatefulWidget {
 
 class _CurrencyDropDownState extends State<CurrencyDropDown> {
   List<dynamic> currencyList;
-  var currencyValue;
   bool listLoading = true;
 
   getCurrencyList() async {
@@ -34,9 +33,6 @@ class _CurrencyDropDownState extends State<CurrencyDropDown> {
     setState(() {
       currencyList = res;
       listLoading = false;
-      currencyValue = (currencyValue != null && currencyValue != '')
-          ? currencyValue
-          : res[0]['cc'];
     });
   }
 
@@ -47,14 +43,12 @@ class _CurrencyDropDownState extends State<CurrencyDropDown> {
     currencyList = [
       {'cc': widget.loadingText, 'name': widget.loadingText, 'symbol': ''}
     ];
-    currencyValue = widget.currencyValue;
     getCurrencyList();
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(10.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -67,11 +61,10 @@ class _CurrencyDropDownState extends State<CurrencyDropDown> {
                     child: new Text(value['name'] + " - " + value['symbol'])),
               );
             }).toList(),
-            value: listLoading ? widget.loadingText : currencyValue,
+            value: listLoading ? widget.loadingText : widget.currencyValue,
             onChanged: (val) {
               setState(() {
-                currencyValue = val;
-                widget.onChanged(currencyValue);
+                widget.onChanged(val);
               });
             },
           )
