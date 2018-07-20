@@ -27,10 +27,12 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   String currencyValue = 'INR';
+  String currencySymbol = '';
 
-  _onCurrencyChanged(val) {
+  _onCurrencyChanged(val, symbol) {
     setState(() {
       currencyValue = val;
+      currencySymbol = symbol;
     });
   }
 
@@ -40,13 +42,16 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: new AppBar(
         title: new Text(widget.title),
       ),
-      body: Column(
-        children: <Widget>[
-          Container(
-              padding: const EdgeInsets.all(10.0),
-              child: CurrencyDropDown(
-                  currencyValue: currencyValue, onChanged: _onCurrencyChanged)),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text('Currency'),
+            CurrencyDropDown(
+                currencyValue: currencyValue, onChanged: _onCurrencyChanged),
+          ],
+        ),
       ),
     );
   }

@@ -8,13 +8,11 @@ import 'package:flutter/services.dart';
 class CurrencyDropDown extends StatefulWidget {
   final String currencyValue;
   final Function onChanged;
-  final String title;
   final String loadingText;
 
   CurrencyDropDown(
       {@required this.currencyValue,
       @required this.onChanged,
-      this.title = "Currency",
       this.loadingText = "Loading"});
 
   @override
@@ -52,7 +50,6 @@ class _CurrencyDropDownState extends State<CurrencyDropDown> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          new Text(widget.title, textScaleFactor: 1.4,),
           new DropdownButton<String>(
             items: currencyList.map((value) {
               return new DropdownMenuItem<String>(
@@ -64,7 +61,8 @@ class _CurrencyDropDownState extends State<CurrencyDropDown> {
             value: listLoading ? widget.loadingText : widget.currencyValue,
             onChanged: (val) {
               setState(() {
-                widget.onChanged(val);
+                var selected = currencyList.firstWhere((c) => c['cc'] == val);
+                widget.onChanged(val, selected['symbol'] ?? '');
               });
             },
           )
